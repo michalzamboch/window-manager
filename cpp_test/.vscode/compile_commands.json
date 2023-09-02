@@ -1,0 +1,6 @@
+[
+{
+  "directory": "c:\\Users\\PC\\programming\\cpp\\windows",
+  "arguments": ["gcc.exe", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++20", "-fexceptions", "-DNDEBUG", "-o", "build\\.objs\\windows\\windows\\x64\\release\\src\\main.cpp.obj", "src\\main.cpp"],
+  "file": "src\\main.cpp"
+}]
