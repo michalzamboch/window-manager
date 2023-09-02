@@ -23,7 +23,7 @@ BOOL CALLBACK GetWindowsTitles(HWND hwnd, LPARAM lParam){
     return TRUE;
 }
 
- BOOL CALLBACK GetWindowsRects(HWND hwnd, LPARAM lParam){
+BOOL CALLBACK GetWindowsRects(HWND hwnd, LPARAM lParam){
     RECT rect;
 
     GetWindowRect(hwnd, &rect);
@@ -37,4 +37,19 @@ BOOL CALLBACK GetWindowsTitles(HWND hwnd, LPARAM lParam){
     rectangles.push_back(winRect);
 
     return TRUE;
+}
+
+static BOOL CALLBACK EnumHWND(HWND hwnd, LPARAM lParam){
+    std::vector<HWND>& hwnds = *reinterpret_cast<std::vector<HWND>*>(lParam);
+    hwnds.push_back(hwnd);
+
+    return TRUE;
+}
+
+std::vector<HWND> GetAvailableHWNDs()
+{
+    std::vector<HWND> hwnds;
+    EnumWindows(EnumHWND, reinterpret_cast<LPARAM>(&hwnds));
+
+    return hwnds;
 }

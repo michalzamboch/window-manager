@@ -6,7 +6,7 @@
 #include "WinRect.h"
 #include "WindowReaders.h"
 
-void ListWindowTitles()
+void listWindowTitles()
 {
     std::vector<std::wstring> titles;
     EnumWindows(GetWindowsTitles, reinterpret_cast<LPARAM>(&titles));
@@ -15,7 +15,7 @@ void ListWindowTitles()
         std::wcout << L"Title: " << title << std::endl;
 }
 
-void ListWindowSizes()
+void listWindowSizes()
 {
     std::vector<WinRect> rectangles;
     EnumWindows(GetWindowsRects, reinterpret_cast<LPARAM>(&rectangles));
@@ -25,9 +25,19 @@ void ListWindowSizes()
     }
 }
 
+void listHWNDs()
+{
+    auto hwnds = GetAvailableHWNDs();
+    for (auto& hwnd : hwnds)
+    {
+        std::cout << hwnd << std::endl;
+    }
+} 
+
 int main() {
-    ListWindowTitles();
-    ListWindowSizes();
+    listWindowTitles();
+    listWindowSizes();
+    listHWNDs();
 
     return 0;
 }
