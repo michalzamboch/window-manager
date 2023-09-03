@@ -13,8 +13,11 @@ fn print_message(msg: &str) -> Result<i32, Error> {
     let ret = unsafe {
         MessageBoxW(null_mut(), wide.as_ptr(), wide.as_ptr(), MB_OK)
     };
-    if ret == 0 { Err(Error::last_os_error()) }
-    else { Ok(ret) }
+    
+    match ret {
+        0 => Err(Error::last_os_error()),
+        _ => Ok(ret)  
+    }
 }
 
 #[cfg(not(windows))]
