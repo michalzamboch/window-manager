@@ -1,7 +1,7 @@
 
 #include "WindowReaders.h"
 
-static BOOL CALLBACK EnumHWND(HWND hwnd, LPARAM lParam)
+BOOL CALLBACK EnumHWND(HWND hwnd, LPARAM lParam)
 {
     std::vector<HWND> &hwnds = *reinterpret_cast<std::vector<HWND> *>(lParam);
     hwnds.push_back(hwnd);
