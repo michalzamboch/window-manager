@@ -25,7 +25,7 @@ void ListHWNDs()
 {
     auto hwnds = GetAvailableHWNDs();
 
-    for (auto &hwnd : hwnds)
+    for (const auto &hwnd : hwnds)
     {
         std::cout << hwnd << std::endl;
     }
