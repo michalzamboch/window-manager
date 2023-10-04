@@ -4,7 +4,12 @@
 
 #include "WindowReaders.h"
 
+void ListAll();
 void ListWindowTitles();
 void ListWindowSizes();
 void ListHWNDs();
-void ListAll();
+
+unsigned long WindowTitlesCount();
+unsigned long WindowSizesCount();
+unsigned long HWNDsCount();
+void ListAllCounts();
