@@ -10,8 +10,8 @@ void listWindowTitles()
 {
     std::vector<std::wstring> titles;
     EnumWindows(GetWindowsTitles, reinterpret_cast<LPARAM>(&titles));
-    
-    for ( auto& title : titles )
+
+    for (auto &title : titles)
         std::wcout << L"Title: " << title << std::endl;
 }
 
@@ -19,7 +19,7 @@ void listWindowSizes()
 {
     std::vector<WinRect> rectangles;
     EnumWindows(GetWindowsRects, reinterpret_cast<LPARAM>(&rectangles));
-    for (auto& rect : rectangles)
+    for (const auto &rect : rectangles)
     {
         rect.print();
     }
@@ -28,13 +28,14 @@ void listWindowSizes()
 void listHWNDs()
 {
     auto hwnds = GetAvailableHWNDs();
-    for (auto& hwnd : hwnds)
+    for (auto &hwnd : hwnds)
     {
         std::cout << hwnd << std::endl;
     }
-} 
+}
 
-int main() {
+int main()
+{
     listWindowTitles();
     listWindowSizes();
     listHWNDs();

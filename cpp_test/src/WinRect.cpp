@@ -5,7 +5,7 @@
 
 #include "WinRect.h"
 
-WinRect::WinRect(const RECT& rect)
+WinRect::WinRect(const RECT &rect)
 {
     this->top = rect.top;
     this->bottom = rect.bottom;
@@ -13,19 +13,19 @@ WinRect::WinRect(const RECT& rect)
     this->right = rect.right;
 }
 
-std::string WinRect::toString()
+std::string WinRect::toString() const
 {
     std::stringstream stream;
-    stream 
+    stream
         << "Top: " << this->top
-        << " Bottom: " << this->bottom 
-        << " Left: " <<  this->left 
+        << " Bottom: " << this->bottom
+        << " Left: " << this->left
         << " Right: " << this->right;
 
     return stream.str();
 }
 
-void WinRect::print()
+void WinRect::print() const
 {
-    std::cout << this->toString() << std::endl;
+    std::cout << toString() << std::endl;
 }
