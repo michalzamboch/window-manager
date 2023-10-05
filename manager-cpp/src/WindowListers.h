@@ -4,12 +4,15 @@
 
 #include "WindowReaders.h"
 
-void ListAll();
-void ListWindowTitles();
-void ListWindowSizes();
-void ListHWNDs();
+namespace WindowManager
+{
+    void ListAll();
+    void ListWindowTitles();
+    void ListWindowSizes();
+    void ListHWNDs();
 
-unsigned long WindowTitlesCount();
-unsigned long WindowSizesCount();
-unsigned long HWNDsCount();
-void ListAllCounts();
+    unsigned long WindowTitlesCount();
+    unsigned long WindowSizesCount();
+    unsigned long HWNDsCount();
+    void ListAllCounts();
+}

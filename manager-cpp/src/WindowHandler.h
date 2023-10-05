@@ -4,16 +4,19 @@
 
 #include "WinRect.h"
 
-class WindowHandler
+namespace WindowManager
 {
-private:
-    HWND handler;
-    std::wstring title;
-    WinRect rect;
+    class WindowHandler
+    {
+    private:
+        HWND handler;
+        std::wstring title;
+        WinRect rect;
 
-public:
-    WindowHandler() = delete;
-    WindowHandler(const HWND &handler);
+    public:
+        WindowHandler() = delete;
+        WindowHandler(const HWND &handler);
 
-    ~WindowHandler() = default;
-};
+        ~WindowHandler() = default;
+    };
+}

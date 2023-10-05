@@ -2,8 +2,8 @@
 
 int main()
 {
-    ListAll();
-    ListAllCounts();
+    WindowManager::ListAll();
+    WindowManager::ListAllCounts();
 
     return 0;
 }

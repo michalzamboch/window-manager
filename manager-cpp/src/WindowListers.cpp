@@ -1,61 +1,64 @@
 
 #include "WindowListers.h"
 
-void ListAll()
+namespace WindowManager
 {
-    ListHWNDs();
-    ListWindowTitles();
-    ListWindowSizes();
-}
-
-void ListWindowTitles()
-{
-    auto titles = GetAvailableTitles();
-
-    for (const auto &title : titles)
+    void ListAll()
     {
-        std::wcout << L"Title: " << title << std::endl;
+        ListHWNDs();
+        ListWindowTitles();
+        ListWindowSizes();
     }
-}
 
-void ListWindowSizes()
-{
-    auto rectangles = GetAvailableWinRects();
-    
-    for (const auto &rect : rectangles)
+    void ListWindowTitles()
     {
-        rect.print();
+        auto titles = WindowManager::GetAvailableTitles();
+
+        for (const auto &title : titles)
+        {
+            std::wcout << L"Title: " << title << std::endl;
+        }
     }
-}
 
-void ListHWNDs()
-{
-    auto hwnds = GetAvailableHWNDs();
-
-    for (const auto &hwnd : hwnds)
+    void ListWindowSizes()
     {
-        std::cout << hwnd << std::endl;
+        auto rectangles = WindowManager::GetAvailableWinRects();
+        
+        for (const auto &rect : rectangles)
+        {
+            rect.print();
+        }
     }
-}
 
-unsigned long WindowTitlesCount()
-{
-    return static_cast<unsigned long>(GetAvailableTitles().size());
-}
+    void ListHWNDs()
+    {
+        auto hwnds = WindowManager::GetAvailableHWNDs();
 
-unsigned long WindowSizesCount()
-{
-    return static_cast<unsigned long>(GetAvailableWinRects().size());
-}
+        for (const auto &hwnd : hwnds)
+        {
+            std::cout << hwnd << std::endl;
+        }
+    }
 
-unsigned long HWNDsCount()
-{
-    return static_cast<unsigned long>(GetAvailableHWNDs().size());
-}
+    unsigned long WindowTitlesCount()
+    {
+        return static_cast<unsigned long>(WindowManager::GetAvailableTitles().size());
+    }
 
-void ListAllCounts()
-{
-    std::cout << "Titles count: " << WindowTitlesCount() << std::endl;
-    std::cout << "Window sizes count: " << WindowSizesCount() << std::endl;
-    std::cout << "HWND count: " << HWNDsCount() << std::endl;
+    unsigned long WindowSizesCount()
+    {
+        return static_cast<unsigned long>(WindowManager::GetAvailableWinRects().size());
+    }
+
+    unsigned long HWNDsCount()
+    {
+        return static_cast<unsigned long>(WindowManager::GetAvailableHWNDs().size());
+    }
+
+    void ListAllCounts()
+    {
+        std::cout << "Titles count: " << WindowTitlesCount() << std::endl;
+        std::cout << "Window sizes count: " << WindowSizesCount() << std::endl;
+        std::cout << "HWND count: " << HWNDsCount() << std::endl;
+    }
 }

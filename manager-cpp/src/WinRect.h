@@ -3,19 +3,22 @@
 #include <vector>
 #include <sstream>
 
-class WinRect
+namespace WindowManager
 {
-public:
-    WinRect() = default;
-    WinRect(const RECT &rect);
+    class WinRect
+    {
+    public:
+        WinRect() = delete;
+        WinRect(const RECT &rect);
 
-    ~WinRect() = default;
+        ~WinRect() = default;
 
-    long top;
-    long bottom;
-    long left;
-    long right;
+        long top;
+        long bottom;
+        long left;
+        long right;
 
-    std::string toString() const;
-    void print() const;
-};
+        std::string toString() const;
+        void print() const;
+    };
+}

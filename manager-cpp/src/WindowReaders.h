@@ -6,6 +6,9 @@
 
 #include "WinRect.h"
 
-std::vector<HWND> GetAvailableHWNDs();
-std::vector<std::wstring> GetAvailableTitles();
-std::vector<WinRect> GetAvailableWinRects();
+namespace WindowManager
+{
+    std::vector<HWND> GetAvailableHWNDs();
+    std::vector<std::wstring> GetAvailableTitles();
+    std::vector<WinRect> GetAvailableWinRects();
+}
