@@ -1,6 +1,26 @@
 [
 {
-  "directory": "c:\\Users\\PC\\programming\\cpp\\windows",
-  "arguments": ["gcc.exe", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++20", "-fexceptions", "-DNDEBUG", "-o", "build\\.objs\\windows\\windows\\x64\\release\\src\\main.cpp.obj", "src\\main.cpp"],
+  "directory": "c:\\Users\\PC\\programming\\window-manager\\manager-cpp",
+  "arguments": ["gcc.exe", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++20", "-fexceptions", "-DNDEBUG", "-o", "build\\.objs\\window-manager\\windows\\x64\\release\\src\\main.cpp.obj", "src\\main.cpp"],
   "file": "src\\main.cpp"
+},
+{
+  "directory": "c:\\Users\\PC\\programming\\window-manager\\manager-cpp",
+  "arguments": ["gcc.exe", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++20", "-fexceptions", "-DNDEBUG", "-o", "build\\.objs\\window-manager\\windows\\x64\\release\\src\\WindowHandler.cpp.obj", "src\\WindowHandler.cpp"],
+  "file": "src\\WindowHandler.cpp"
+},
+{
+  "directory": "c:\\Users\\PC\\programming\\window-manager\\manager-cpp",
+  "arguments": ["gcc.exe", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++20", "-fexceptions", "-DNDEBUG", "-o", "build\\.objs\\window-manager\\windows\\x64\\release\\src\\WindowListers.cpp.obj", "src\\WindowListers.cpp"],
+  "file": "src\\WindowListers.cpp"
+},
+{
+  "directory": "c:\\Users\\PC\\programming\\window-manager\\manager-cpp",
+  "arguments": ["gcc.exe", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++20", "-fexceptions", "-DNDEBUG", "-o", "build\\.objs\\window-manager\\windows\\x64\\release\\src\\WindowReaders.cpp.obj", "src\\WindowReaders.cpp"],
+  "file": "src\\WindowReaders.cpp"
+},
+{
+  "directory": "c:\\Users\\PC\\programming\\window-manager\\manager-cpp",
+  "arguments": ["gcc.exe", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++20", "-fexceptions", "-DNDEBUG", "-o", "build\\.objs\\window-manager\\windows\\x64\\release\\src\\WinRect.cpp.obj", "src\\WinRect.cpp"],
+  "file": "src\\WinRect.cpp"
 }]

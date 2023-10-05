@@ -13,6 +13,16 @@ namespace WindowManager
 
     BOOL CALLBACK GetWindowsTitles(HWND hwnd, LPARAM lParam)
     {
+        auto title = GetWindowTilte(hwnd);
+
+        std::vector<std::wstring> &titles = *reinterpret_cast<std::vector<std::wstring> *>(lParam);
+        titles.push_back(title);
+
+        return TRUE;
+    }
+
+    std::wstring GetWindowTilte(HWND hwnd)
+    {
         const DWORD TITLE_SIZE = 1024;
         WCHAR windowTitle[TITLE_SIZE];
 
@@ -20,24 +30,27 @@ namespace WindowManager
 
         int length = ::GetWindowTextLength(hwnd);
         std::wstring title(&windowTitle[0]);
-        
-        std::vector<std::wstring> &titles = *reinterpret_cast<std::vector<std::wstring> *>(lParam);
-        titles.push_back(title);
 
-        return TRUE;
+        return title;
     }
 
     BOOL CALLBACK GetWindowsRects(HWND hwnd, LPARAM lParam)
     {
-        RECT rect;
-
-        GetWindowRect(hwnd, &rect);
+        auto rect = GetRect(hwnd);
 
         WinRect winRect(rect);
         std::vector<WinRect> &rectangles = *reinterpret_cast<std::vector<WinRect> *>(lParam);
         rectangles.push_back(winRect);
 
         return TRUE;
+    }
+
+    RECT GetRect(HWND hwnd)
+    {
+        RECT rect;
+        GetWindowRect(hwnd, &rect);
+
+        return rect;
     }
 
     std::vector<HWND> GetAvailableHWNDs()
