@@ -1,53 +1,66 @@
-#[cfg(windows)] extern crate winapi;
-use std::io::Error;
+use winapi::{
+    shared::{
+        minwindef::{BOOL, LPARAM},
+        windef::HWND,
+    },
+    um::{
+        winnt::LPWSTR,
+        winuser::{EnumWindows, GetWindowTextLengthW, GetWindowTextW, IsWindowVisible},
+    },
+};
 
-use std::ffi::OsStr;
-use std::iter::once;
-use std::os::windows::ffi::OsStrExt;
-use std::ptr::null_mut;
+use crate::{types::ConnectionTrait, types::Result};
 
-use winapi::shared::minwindef::*;
-use winapi::um::winuser::*;
-use winapi::shared::windef::*;
+pub struct Connection;
+impl ConnectionTrait for Connection {
+    fn new() -> Result<Self> {
+        Ok(Self)
+    }
 
-#[cfg(windows)]
-pub fn print_message(msg: &str) -> Result<i32, Error> {
-    let wide: Vec<u16> = OsStr::new(msg).encode_wide().chain(once(0)).collect();
-    let ret = unsafe {
-        MessageBoxW(null_mut(), wide.as_ptr(), wide.as_ptr(), MB_OK)
-    };
-    
-    match ret {
-        0 => Err(Error::last_os_error()),
-        _ => Ok(ret)  
+    fn window_titles(&self) -> Result<Vec<String>> {
+        let state: Box<Vec<String>> = Box::new(Vec::new());
+        let ptr = Box::into_raw(state);
+        let state;
+        unsafe {
+            EnumWindows(Some(enumerate_windows), ptr as LPARAM);
+            state = Box::from_raw(ptr);
+        }
+        Ok(*state)
     }
 }
 
-#[cfg(not(windows))]
-pub fn print_message(msg: &str) -> Result<(), Error> {
-    println!("{}", msg);
-    Ok(())
-}
-
-
-type Fn_HWND_LPARAM_BOOL = unsafe extern "system" fn(hwnd: HWND, l_param: LPARAM) -> BOOL; 
-
-pub unsafe extern "system" fn enum_hwnd(hwnd: HWND, l_param: LPARAM) -> BOOL {
-    println!("{:?}", hwnd);
-    
-    let mut param = l_param as *mut Vec<HWND>;
-    //(*param).push(hwnd);
-
-    return TRUE;
-}
-
-pub fn get_available_HWNDs() {
-    let mut hwnds: Vec<HWND> = Vec::new();
-    let mut x: Vec<HWND> = Vec::new();
-
-    
+fn window_titles() -> Result<Vec<String>> {
+    let state: Box<Vec<String>> = Box::new(Vec::new());
+    let ptr = Box::into_raw(state);
+    let state;
     unsafe {
-        let function = Some(enum_hwnd as Fn_HWND_LPARAM_BOOL);
-        EnumWindows(function, hwnds.as_mut_ptr() as LPARAM);
+        EnumWindows(Some(enumerate_windows), ptr as LPARAM);
+        state = Box::from_raw(ptr);
     }
+    Ok(*state)
+}
+
+unsafe extern "system" fn enumerate_windows(window: HWND, state: LPARAM) -> BOOL {
+    if IsWindowVisible(window) == 0 {
+        return true.into();
+    }
+
+    let state = state as *mut Vec<String>;
+    let mut length = GetWindowTextLengthW(window);
+
+    if length == 0 {
+        return true.into();
+    }
+
+    length = length + 1;
+    let mut title: Vec<u16> = vec![0; length as usize];
+    let textw = GetWindowTextW(window, title.as_mut_ptr() as LPWSTR, length);
+
+    if textw != 0 {
+        if let Ok(title) = String::from_utf16(title[0..(textw as usize)].as_ref()) {
+            (*state).push(title);
+        }
+    }
+
+    true.into()
 }
