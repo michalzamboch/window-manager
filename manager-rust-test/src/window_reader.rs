@@ -67,6 +67,24 @@ unsafe extern "system" fn enumerate_filtered_windows(window: HWND, state: LPARAM
 
 // ------------------------------------------------------
 
+pub fn get_window_all_hwnds() -> Vec<HWND> {
+    let state: Box<Vec<HWND>> = Box::new(Vec::new());
+    let ptr = Box::into_raw(state);
+    let state;
+    unsafe {
+        EnumWindows(Some(enumerate_all_windows_hwnds), ptr as LPARAM);
+        state = Box::from_raw(ptr);
+    }
+    *state
+}
+
+
+unsafe extern "system" fn enumerate_all_windows_hwnds(window: HWND, state: LPARAM) -> BOOL {
+    let state = state as *mut Vec<HWND>;
+    (*state).push(window);
+    
+    true.into()
+}
 
 pub fn get_window_all_titles() -> Vec<String> {
     let state: Box<Vec<String>> = Box::new(Vec::new());
@@ -106,4 +124,13 @@ unsafe fn get_title(window: HWND) -> String {
         Ok(title) => return title,
         Err(_) => return "".into(),
     }
+}
+
+pub fn visible_window(window: HWND) -> bool {
+    let visible;    
+    unsafe {
+        visible = get_title(window).len() != 0 && IsWindowVisible(window) != 0;
+    }
+
+    visible
 }
