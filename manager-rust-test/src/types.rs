@@ -7,7 +7,7 @@ use winapi::shared::{
 
 pub type Result<T> = StdResult<T, Box<dyn Error>>;
 
-type FN_HWND_LPARAM_BOOL = unsafe extern "system" fn(hwnd: HWND, l_param: LPARAM) -> BOOL;
+type FnHwndLparamBool = unsafe extern "system" fn(hwnd: HWND, l_param: LPARAM) -> BOOL;
 
 pub trait ConnectionTrait: Sized {
     fn new() -> Result<Self>;

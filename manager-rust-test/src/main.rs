@@ -1,14 +1,9 @@
-use types::ConnectionTrait;
-use window_reader::Connection;
+use listers::list_all_window;
 
 mod types;
 mod window_reader;
+mod listers;
 
 fn main() {
-    let connection = Connection::new().unwrap();
-    let titles = connection.window_titles().unwrap();
-    let count = titles.len();
-
-    titles.into_iter().for_each(|title| println!("{}", title));
-    println!("Count: {}", count);
+    list_all_window();
 }
