@@ -2,9 +2,7 @@
 
 use winapi::shared::windef::HWND;
 
-use crate::window_reader::{
-    get_window_all_hwnds, get_window_all_titles, get_windows_visible_titles,
-};
+use crate::connection::{hwnd::*, title::*};
 
 pub fn list_all_hwnds() {
     let hwnds = get_window_all_hwnds();

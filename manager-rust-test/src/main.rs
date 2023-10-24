@@ -1,7 +1,7 @@
 use listers::*;
 
 mod types;
-mod window_reader;
+mod connection;
 mod listers;
 
 fn main() {

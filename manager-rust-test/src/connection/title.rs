@@ -1,3 +1,4 @@
+
 use winapi::{
     shared::{
         minwindef::{BOOL, LPARAM},
@@ -5,47 +6,11 @@ use winapi::{
     },
     um::{
         winnt::LPWSTR,
-        winuser::{EnumWindows, GetWindowTextLengthW, GetWindowTextW, IsWindowVisible},
+        winuser::{EnumWindows, GetWindowTextLengthW, GetWindowTextW},
     },
 };
 
-pub fn is_window_visible(window: &HWND) -> bool {
-    let visible;
-    unsafe {
-        let title: String = get_title(*window);
-        visible = title.len() != 0 && IsWindowVisible(*window) != 0 && title != "Program Manager";
-    }
-
-    visible
-}
-
-pub fn get_visible_windows_hwnds() -> Vec<HWND> {
-    let result: Vec<HWND> = get_window_all_hwnds()
-        .iter()
-        .filter(|hwnd| is_window_visible(&hwnd))
-        .cloned()
-        .collect();
-
-    result
-}
-
-pub fn get_window_all_hwnds() -> Vec<HWND> {
-    let state: Box<Vec<HWND>> = Box::new(Vec::new());
-    let ptr = Box::into_raw(state);
-    let state;
-    unsafe {
-        EnumWindows(Some(enumerate_all_windows_hwnds), ptr as LPARAM);
-        state = Box::from_raw(ptr);
-    }
-    *state
-}
-
-unsafe extern "system" fn enumerate_all_windows_hwnds(window: HWND, state: LPARAM) -> BOOL {
-    let state = state as *mut Vec<HWND>;
-    (*state).push(window);
-
-    true.into()
-}
+use super::hwnd::get_visible_windows_hwnds;
 
 pub fn get_window_all_titles() -> Vec<String> {
     let state: Box<Vec<String>> = Box::new(Vec::new());
@@ -75,7 +40,7 @@ unsafe extern "system" fn enumerate_all_windows_title(window: HWND, state: LPARA
     true.into()
 }
 
-fn get_title(window: HWND) -> String {
+pub fn get_title(window: HWND) -> String {
     let mut title: Vec<u16>;
     let textw ;
 
