@@ -1,8 +1,9 @@
+#![allow(dead_code)]
+
 use winapi::shared::windef::HWND;
 
-use crate::{
-    types::{ConnectionTrait, Result},
-    window_reader::{get_window_all_titles, Connection, get_window_all_hwnds},
+use crate::window_reader::{
+    get_window_all_hwnds, get_window_all_titles, get_windows_visible_titles,
 };
 
 pub fn list_all_hwnds() {
@@ -27,11 +28,8 @@ fn list_windows(window_titles: Vec<String>) {
     }
 }
 
-fn list_filtered_windows() {
-    let connection = Connection::new().unwrap();
-    let titles = connection.window_titles().unwrap();
-    let count = titles.len();
+pub fn list_wisible_windows() {
+    let titles = get_windows_visible_titles();
 
     titles.into_iter().for_each(|title| println!("{}", title));
-    println!("Count: {}", count);
 }

@@ -1,9 +1,9 @@
-use listers::{list_all_window, list_all_hwnds};
+use listers::*;
 
 mod types;
 mod window_reader;
 mod listers;
 
 fn main() {
-    list_all_hwnds();
+    list_wisible_windows();
 }
