@@ -1,9 +1,9 @@
 use listers::*;
 
-mod types;
 mod connection;
 mod listers;
+mod types;
 
 fn main() {
-    list_wisible_windows();
+    list_window_placements();
 }

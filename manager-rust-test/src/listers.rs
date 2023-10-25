@@ -2,7 +2,7 @@
 
 use winapi::shared::windef::HWND;
 
-use crate::connection::{hwnd::*, title::*};
+use crate::connection::{hwnd::*, size::*, title::*};
 
 pub fn list_all_hwnds() {
     let hwnds = get_window_all_hwnds();
@@ -30,4 +30,13 @@ pub fn list_wisible_windows() {
     let titles = get_windows_visible_titles();
 
     titles.into_iter().for_each(|title| println!("{}", title));
+}
+
+pub fn list_window_placements() {
+    let hwnds = get_visible_windows_hwnds();
+    
+    for hwnd in hwnds {
+        let placement = get_window_placement(&hwnd);
+        println!("{} {}", get_title(hwnd), window_placement_string(&placement));
+    }
 }

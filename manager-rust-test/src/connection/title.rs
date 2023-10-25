@@ -10,7 +10,7 @@ use winapi::{
     },
 };
 
-use super::hwnd::get_visible_windows_hwnds;
+use super::hwnd::*;
 
 pub fn get_window_all_titles() -> Vec<String> {
     let state: Box<Vec<String>> = Box::new(Vec::new());
