@@ -1,22 +1,5 @@
 #![allow(dead_code)]
 
-/*
-HWND hwnd = CreateWindowEx(
-    0,                              // Optional window styles.
-    CLASS_NAME,                     // Window class
-    L"Learn to Program Windows",    // Window text
-    WS_OVERLAPPEDWINDOW,            // Window style
-
-    // Size and position
-    CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
-
-    NULL,       // Parent window
-    NULL,       // Menu
-    hInstance,  // Instance handle
-    NULL        // Additional application data
-    );
-*/
-
 use winapi::shared::minwindef::*;
 use winapi::shared::windef::*;
 use winapi::um::libloaderapi::*;
@@ -49,7 +32,7 @@ unsafe extern "system" fn window_proc(
 
 pub fn create_mock_window() {
     unsafe {
-		let wc = get_new_winclass();
+        let wc = get_new_winclass();
 
         if RegisterClassExW(&wc) == 0 {
             panic!("RegisterClassEx failed");
@@ -70,7 +53,7 @@ pub fn create_mock_window() {
             std::ptr::null_mut(),
         );
 
-		if hwnd == std::ptr::null_mut() {
+        if hwnd == std::ptr::null_mut() {
             panic!("CreateWindowEx failed");
         }
 

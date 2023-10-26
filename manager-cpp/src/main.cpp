@@ -2,7 +2,7 @@
 
 int main()
 {
-    WindowManager::ListAll();
+    WindowManager::ListWindowTitles();
     WindowManager::ListAllCounts();
 
     return 0;
