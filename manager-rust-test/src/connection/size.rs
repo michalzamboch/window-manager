@@ -2,7 +2,7 @@
 
 use winapi::{
     shared::windef::{HWND, POINT, RECT},
-    um::winuser::{GetWindowPlacement, SW_SHOWNORMAL, WINDOWPLACEMENT},
+    um::winuser::{GetWindowPlacement, GetWindowRect, SW_SHOWNORMAL, WINDOWPLACEMENT},
 };
 
 pub fn get_window_placement(hwnd: &HWND) -> WINDOWPLACEMENT {
@@ -67,4 +67,25 @@ pub fn print_window_placement(wp: &WINDOWPLACEMENT) {
 pub fn print_window_placement_hwnd(hwnd: &HWND) {
     let wp = &get_window_placement(hwnd);
     println!("{}", window_placement_string(wp));
+}
+
+
+pub fn GetRect(hwnd: &HWND) {
+    let rect = RECT {
+        left: 0,
+        top: 0,
+        right: 0,
+        bottom: 0,
+    };
+
+    let boxed_rect = Box::new(RECT {
+        left: 0,
+        top: 0,
+        right: 0,
+        bottom: 0,
+    });
+
+    let ptr = Box::into_raw(boxed_rect);
+
+    unsafe { GetWindowRect(*hwnd, ptr) };
 }
