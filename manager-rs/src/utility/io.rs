@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 pub fn wait_for_input() {
     let mut line = String::new();
     std::io::stdin()

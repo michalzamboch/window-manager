@@ -1,9 +1,7 @@
 use crate::utility::io::*;
-use events::runner::set_window_event;
 use listers::*;
 
 mod connection;
-mod events;
 mod listers;
 mod types;
 mod utility;
