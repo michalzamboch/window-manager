@@ -69,23 +69,30 @@ pub fn print_window_placement_hwnd(hwnd: &HWND) {
     println!("{}", window_placement_string(wp));
 }
 
+pub fn rect_to_string(rect: &RECT) -> String {
+    format!(
+        "left {} top {} right {} bottom {}",
+        rect.left, rect.top, rect.right, rect.bottom
+    )
+}
 
-pub fn GetRect(hwnd: &HWND) {
-    let rect = RECT {
-        left: 0,
-        top: 0,
-        right: 0,
-        bottom: 0,
-    };
-
-    let boxed_rect = Box::new(RECT {
-        left: 0,
-        top: 0,
-        right: 0,
-        bottom: 0,
-    });
-
+pub fn get_window_rect(hwnd: &HWND) -> RECT {
+    let rect = get_empty_rect();
+    let boxed_rect = Box::new(rect);
     let ptr = Box::into_raw(boxed_rect);
 
-    unsafe { GetWindowRect(*hwnd, ptr) };
+    unsafe {
+        GetWindowRect(*hwnd, ptr);
+
+        *ptr
+    }
+}
+
+pub fn get_empty_rect() -> RECT {
+    RECT {
+        left: 0,
+        top: 0,
+        right: 0,
+        bottom: 0,
+    }
 }

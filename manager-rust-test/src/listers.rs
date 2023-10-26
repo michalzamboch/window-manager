@@ -40,3 +40,12 @@ pub fn list_window_placements() {
         println!("{} {}", get_title(hwnd), window_placement_string(&placement));
     }
 }
+
+pub fn list_window_rects() {
+    let hwnds = get_visible_windows_hwnds();
+    
+    for hwnd in hwnds {
+        let rect = get_window_rect(&hwnd);
+        println!("{} {}", get_title(hwnd), rect_to_string(&rect));
+    }
+}
