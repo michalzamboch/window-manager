@@ -4,6 +4,25 @@ use winapi::shared::windef::HWND;
 
 use crate::connection::{hwnd::*, size::*, title::*};
 
+pub fn list_windows_info_trimmed_titles() {
+    let hwnds = get_visible_windows_hwnds();
+    
+    for hwnd in hwnds {
+        let rect = get_window_rect(&hwnd);
+        let trimmed_title = get_trimmed_title(&get_title(hwnd));
+        println!("{:?}: {} {}", hwnd, trimmed_title, rect_to_string(&rect));
+    }
+}
+
+pub fn list_windows_info() {
+    let hwnds = get_visible_windows_hwnds();
+    
+    for hwnd in hwnds {
+        let rect = get_window_rect(&hwnd);
+        println!("{:?}: {} {}", hwnd, get_title(hwnd), rect_to_string(&rect));
+    }
+}
+
 pub fn list_all_hwnds() {
     let hwnds = get_window_all_hwnds();
     list_hwnds(hwnds);

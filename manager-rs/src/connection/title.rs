@@ -40,6 +40,16 @@ unsafe extern "system" fn enumerate_all_windows_title(window: HWND, state: LPARA
     true.into()
 }
 
+pub fn get_trimmed_title(title: &str) -> String {
+    let pattern = " - ";
+    let parts = title.split(pattern);
+    
+    match parts.last() {
+        Some(clean_title) => clean_title.to_owned(),
+        None => "Empty title".to_owned(),
+    }
+}
+
 pub fn get_title(window: HWND) -> String {
     let mut title: Vec<u16>;
     let textw ;

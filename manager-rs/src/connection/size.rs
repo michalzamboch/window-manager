@@ -48,20 +48,12 @@ pub fn set_window_pos(hwnd: &HWND, new_rect: RECT) {
     }
 }
 
-pub fn set_rect_hwnd(hwnd: &HWND) {
-    let mut rect = get_window_rect(&hwnd);
-
-}
-
 fn set_rect(rect: &mut RECT, x: i32, y: i32, x2: i32, y2: i32) {
-    let copied_rect = rect.clone();
-    let boxed_rect = Box::new(copied_rect);
+    let boxed_rect = Box::new(*rect);
     let ptr = Box::into_raw(boxed_rect);
 
     unsafe {
         SetRect(ptr, x, y, x2, y2);
-
-        set_rect_values(&mut (*ptr), x, y, x2, y2)
     }
 }
 

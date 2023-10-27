@@ -1,4 +1,3 @@
-use crate::utility::io::*;
 use listers::*;
 
 mod connection;
@@ -7,7 +6,5 @@ mod types;
 mod utility;
 
 fn main() {
-    list_window_placements();
-    print_delimiter();
-    list_window_rects();
+    list_windows_info_trimmed_titles();
 }
