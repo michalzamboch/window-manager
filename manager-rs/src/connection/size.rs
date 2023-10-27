@@ -2,11 +2,14 @@
 
 use winapi::{
     shared::windef::{HWND, POINT, RECT},
-    um::winuser::{GetWindowPlacement, GetWindowRect, SW_SHOWNORMAL, WINDOWPLACEMENT},
+    um::winuser::{
+        self, GetWindowPlacement, GetWindowRect, SetRect, SetWindowPos, SW_SHOWNORMAL,
+        WINDOWPLACEMENT,
+    },
 };
 
 pub fn get_window_placement(hwnd: &HWND) -> WINDOWPLACEMENT {
-    let mut wp = get_basic_window_placement();
+    let mut wp = get_empty_window_placement();
 
     unsafe {
         GetWindowPlacement(*hwnd, &mut wp);
@@ -15,7 +18,7 @@ pub fn get_window_placement(hwnd: &HWND) -> WINDOWPLACEMENT {
     wp
 }
 
-fn get_basic_window_placement() -> WINDOWPLACEMENT {
+fn get_empty_window_placement() -> WINDOWPLACEMENT {
     WINDOWPLACEMENT {
         length: 0,
         flags: 0,
@@ -29,6 +32,44 @@ fn get_basic_window_placement() -> WINDOWPLACEMENT {
             bottom: 0,
         },
     }
+}
+
+pub fn set_window_pos(hwnd: &HWND, new_rect: RECT) {
+    unsafe {
+        SetWindowPos(
+            *hwnd,
+            winuser::HWND_TOPMOST,
+            new_rect.right,
+            new_rect.top,
+            new_rect.left,
+            new_rect.bottom,
+            winuser::SWP_SHOWWINDOW,
+        );
+    }
+}
+
+pub fn set_rect_hwnd(hwnd: &HWND) {
+    let mut rect = get_window_rect(&hwnd);
+
+}
+
+fn set_rect(rect: &mut RECT, x: i32, y: i32, x2: i32, y2: i32) {
+    let copied_rect = rect.clone();
+    let boxed_rect = Box::new(copied_rect);
+    let ptr = Box::into_raw(boxed_rect);
+
+    unsafe {
+        SetRect(ptr, x, y, x2, y2);
+
+        set_rect_values(&mut (*ptr), x, y, x2, y2)
+    }
+}
+
+fn set_rect_values(rect: &mut RECT, x: i32, y: i32, x2: i32, y2: i32) {
+    rect.right = x;
+    rect.left = x2;
+    rect.top = y;
+    rect.bottom = y2;
 }
 
 pub fn set_coords(wp: &mut WINDOWPLACEMENT, x: i32, y: i32, w: i32, h: i32) {
