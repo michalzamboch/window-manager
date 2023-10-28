@@ -18,8 +18,8 @@ pub fn list_windows_info() {
     let hwnds = get_visible_windows_hwnds();
     
     for hwnd in hwnds {
-        let rect = get_window_rect(&hwnd);
-        println!("{:?}: {} {}", hwnd, get_title(hwnd), rect_to_string(&rect));
+        let placement = get_window_placement(&hwnd);
+        println!("{:?}: {} {}", hwnd, get_title(hwnd), window_placement_string(&placement));
     }
 }
 
